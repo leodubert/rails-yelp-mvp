@@ -3,6 +3,30 @@
 <p><%= @restaurant.address %></p>
 <p> <%= @restaurant.category %></p>
 
+<p><% @restaurant.reviews.each do |n| %>
+<%= n.content %>
+<%= n.rating %>
+<% end %>
+</p>
+
+
+<div>
+<h1>Add a review !</h1>
+<%= simple_form_for([@restaurant, @review], :url => restaurant_reviews_path(@restaurant)) do |f| %>
+ <%= f.error_notification %>
+  <%= f.input :content %>
+  <%= f.input :rating, collection: Review::RATINGS %>
+</div>
+
+<div class="form-actions", class= "btn btn-primary" >
+<%= f.button :submit %>
+</div>
+
+
+
+<% end %>
+
+
 
 <%= link_to 'New Review', new_restaurant_review_path(@restaurant) %>
 
